@@ -1,5 +1,10 @@
 ![](http://i.imgur.com/KC6TAD3.png)
-Jenkins with DooD (Docker outside of Docker)
+
+forked from axltxl/docker-jenkins-dood
+
+Jenkins with Docker inside
+This fork updates to the latest jenkins and docker-ce
+Also there is a tag: jenkins-did-cmake that also contain cmake ( for old school like me :wink: )
 ---
 A [Jenkins container](https://registry.hub.docker.com/_/jenkins/) capable of using [Docker](http://docker.com), so you can Docker while you Docker.
 
