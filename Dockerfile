@@ -14,7 +14,7 @@ MAINTAINER Alejandro Ricoveri <alejandroricoveri@gmail.com>
 # Install necessary packages
 USER root
 RUN apt-get update \
-      && apt-get install -y sudo supervisor \
+      && apt-get install -y sudo supervisor cmake \
       && rm -rf /var/lib/apt/lists/*
 
 # Install docker-engine
