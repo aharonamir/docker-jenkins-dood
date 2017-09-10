@@ -1,20 +1,17 @@
-# vim: ft=dockerfile
-###############################################################################
-# Jenkins with DooD (Docker outside of Docker)
-# http://github.com/axltxl/docker-jenkins-dood
-# Author: Alejandro Ricoveri <me@axltxl.xyz>
-# Based on:
-# * http://container-solutions.com/2015/03/running-docker-in-jenkins-in-docker
-# * http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci
-###############################################################################
+FROM ubuntu:trusty
+MAINTAINER Aharon Amir
 
-FROM jenkins
-MAINTAINER Alejandro Ricoveri <alejandroricoveri@gmail.com>
-
-# Install necessary packages
+# Install necessary packages for me!
 USER root
 RUN apt-get update \
       && apt-get install -y sudo supervisor g++ cmake \
+      && rm -rf /var/lib/apt/lists/*
+
+#Install jenkins
+RUN wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+RUN deb https://pkg.jenkins.io/debian-stable binary/
+RUN apt-get update \
+      && apt-get install -y jenkins \
       && rm -rf /var/lib/apt/lists/*
 
 # Install docker-engine
@@ -25,7 +22,7 @@ RUN apt-get update \
 # Engine is no longer distributed as (almost) static libraries."
 #ARG docker_version=1.11.2
 RUN curl -sSL https://get.docker.com/ | sh && \
-    apt-get purge -y docker-engine && \
+    apt-get purge -y docker-ce && \
     apt-get install docker-ce
 
 # Make sure jenkins user has docker privileges
