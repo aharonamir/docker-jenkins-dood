@@ -43,6 +43,9 @@ USER root
 RUN mkdir -p /var/log/supervisor
 RUN mkdir -p /var/log/jenkins
 
+# allow jenkins to run sudo
+RUN echo "jenkins ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
 # Copy the supervisor.conf file into Docker
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
