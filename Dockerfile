@@ -4,12 +4,16 @@ MAINTAINER Aharon Amir
 # Install necessary packages for me!
 USER root
 RUN apt-get update \
-      && apt-get install -y sudo supervisor g++ cmake \
+      && apt-get install -y sudo supervisor curl wget g++ cmake \
       && rm -rf /var/lib/apt/lists/*
+
+#Install node (needed for web projects)
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+RUN apt-get install -y nodejs build-essential
 
 #Install jenkins
 RUN wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-RUN deb https://pkg.jenkins.io/debian-stable binary/
+RUN sh -c 'echo deb http://pkg.jenkins-ci.org/debian binary/ > /etc/apt/sources.list.d/jenkins.list'
 RUN apt-get update \
       && apt-get install -y jenkins \
       && rm -rf /var/lib/apt/lists/*
@@ -29,9 +33,9 @@ RUN curl -sSL https://get.docker.com/ | sh && \
 RUN usermod -aG docker jenkins
 
 # Install initial plugins
-USER jenkins
-COPY plugins.txt /usr/share/jenkins/plugins.txt
-RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
+#USER jenkins
+#COPY plugins.txt /usr/share/jenkins/plugins.txt
+#RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
 
 # supervisord
 USER root
