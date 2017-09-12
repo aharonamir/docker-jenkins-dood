@@ -1,7 +1,5 @@
 ![](http://i.imgur.com/KC6TAD3.png)
 
-forked from axltxl/docker-jenkins-dood
-
 Jenkins with Docker inside
 This fork updates to the latest jenkins and docker-ce
 Also there is a tag: jenkins-did-cmake that also contain cmake ( for old school like me :wink: )
